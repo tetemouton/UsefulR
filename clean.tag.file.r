@@ -13,6 +13,7 @@ setwd("C:/skj/2016/assessment/Model_Runs/run2014_1")
                                as.data.frame()
     
     tagdat <- data.frame(group = 1:tag$hd$nrel,
+                         prog = tag$tagprog,
                          region = tag$rel$reg,
                          year = tag$rel$y,
                          mon = tag$rel$m,
@@ -27,6 +28,7 @@ setwd("C:/skj/2016/assessment/Model_Runs/run2014_1")
     nrec <- tag$rel.recov %>% group_by(grp) %>% summarise(recN = sum(n))
     
     tagdat$Nrec <- nrec$recN[match(tagdat$group, nrec$grp)]
+    tagdat$yrqtr <- tagdat$year + tagdat$qtr/4 - 0.125
     
     recmat <- tag$rel.recov %>% group_by(grp, len) %>% summarise(recN = sum(n)) %>%
                                 dcast(grp ~ len, value.var="recN")
@@ -40,3 +42,22 @@ setwd("C:/skj/2016/assessment/Model_Runs/run2014_1")
     tagdat <- cbind(tagdat, relmat, tmpmat)
 
     tagdat[is.na(tagdat)] <- 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
